@@ -1,0 +1,125 @@
+:root {
+	--color-accent: cyan;
+	--color-darken: rgba(0,0,0,0.3);
+	--color-darken-more: rgba(0,0,0,0.8);
+	--color-main: #28f;
+	--color-white: #fefefe;
+	--color-grey: #888;
+	--color-grey-light: #ddd;
+}
+* {
+	transition: all 0.07s ease;
+	font-family: sans-serif;
+	margin: 0;
+	padding: 0;
+}
+a {
+	border-bottom: solid 0px var(--color-main);
+}
+a:hover {
+	border-width: 4px;
+}
+aside {
+	background: var(--color-white);
+	border-right: solid 1px var(--color-grey-light);
+	bottom: 0;
+	box-shadow: -0.1em 0 0.5em var(--color-darken);
+	height: calc(100vh - 5em);
+	overflow-y: scroll;
+	position: fixed;
+	width: 32em;
+	z-index: 8;
+}
+aside.hide { left: -40vw; }
+.menu.main:hover > aside,
+aside.show { left: 0; }
+aside
+ ul li {
+	border-bottom: solid 1px var(--color-main);
+	padding: 1em;
+ }
+aside
+ ul li.hidden {
+	display: none;
+ }
+button.searchClearButton {
+	padding: 0.4em 0.7em;
+	z-index: 2;
+}
+h1 {
+	color: var(--color-main);
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+header,
+.menu {
+	font-weight: lighter;
+}
+header {
+	background: var(--color-main);
+	box-shadow: 0 0 0.5em var(--color-darken-more);
+	color: #fff;
+	height: 2em;
+	padding: 1.5em;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 9;
+}
+header
+ h1 {
+	color: #fff;
+	text-align: center;
+ }
+header
+ nav a {
+	margin: 0.5em 2em;
+	padding: 0 1em;
+	padding-top: 1em;
+ }
+header
+ nav a:first-child {
+	margin-left: 8em;
+ }
+.heading {
+	background: var(--color-grey);
+	height: 25%;
+	position: relative;
+	width: 100%;
+}
+input[type='search'] {
+	padding: 0.5em;
+}
+.menu.main {
+	background: var(--color-main);
+	font-size: 200%;
+	height: 1em;
+	left: 0;
+	padding: 0.75em;
+	position: absolute;
+	text-align: center;
+	top: 0;
+	user-select: none;
+	vertical-align: top;
+	width: 1em;
+}
+.menu.main:hover {
+	background: var(--color-darken);
+}
+#content {
+	background: #fefefe;
+	border: solid 1px var(--color-grey-light);
+	height: 85vh;
+	margin: auto;
+	margin-top: calc(8.5vh + 2em);
+	width: 95vw;
+}
+#content.contract {
+	float: right;
+	margin-right: 2vw;
+	width: calc(97vw - 32em);
+}
