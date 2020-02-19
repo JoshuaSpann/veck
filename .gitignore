@@ -1,2 +1,4 @@
 *.db
 h_*
+*.swp
+.gitignore
