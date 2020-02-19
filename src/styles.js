@@ -6,14 +6,16 @@
 		let content = document.querySelector('#content')
 
 		menuButton.onclick = ()=> {
-			if (aside.classList.contains('hide')) {
+			if (_app.config.showmenu == true) {
 				aside.classList.remove('hide')
 				content.classList.add('contract')
 			} else {
 				aside.classList.add('hide')
 				content.classList.remove('contract')
 			}
+			_app.config.showmenu = !_app.config.showmenu
 		}
+		menuButton.click()
 	}
 
 	function setAllYearsToCurrentYear() {
