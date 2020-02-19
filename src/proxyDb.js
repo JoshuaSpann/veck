@@ -1,39 +1,28 @@
-let db = {
+let db = {}
+db.data = {
  tickets: [
   {
-   id: '146ad8f3',
-   name: 'Surface Pro [MS202T] Login Error Box',
+   id: 'no connection',
+   name: 'No Connection to Server',
    completed: false,
-   description: 'Regardless of login account, an error message box pops up',
-   date_added: '2020-02-17 09:38:00',
-   date_completed: null,
-   contacts: ['jspann@siue.edu'],
-   steps: [{completed:false,name:'Contact ITS'}]
-  },
-  {
-   id: '1634b88f',
-   name: 'Noisy Monitor Signal [838801]',
-   completed: true,
-   description: 'Monitor ECG Leads are noisy-distorted like they are greatly ampliefied or the "patient" is moving around a lot.',
-   date_added: '2020-02-17 10:10:10',
-   date_completed: '2020-02-17 10:10:10',
-   contacts: ['hsenald@siue.edu','jspann@siue.edu'],
-   steps: [{completed: true,name:'Check lead connections'},{completed:true,name:'Screw/Tighten lead plates on manikin'}]
-  },
+   description: 'No Connection to Server',
+   date_added:null,
+   date_completed: null
+  }
  ],
  items: [
  
  ]
 }
 db.update = function dbUpdate(tableName, row) {
-	if (db[tableName] == null || db[tableName] == undefined) return 1
+	let tables = db.data
+	if (tables[tableName] == null || tables[tableName] == undefined) return 1
 	let oldDbRow = null
 	// Match Rows //
-	for (rows_i in db[tableName]) {
-		let dbrow = db[tableName][rows_i]
+	for (rows_i in tables[tableName]) {
+		let dbrow = tables[tableName][rows_i]
 		oldDbRow = dbrow
 		if (row.id != dbrow.id) continue
-
 /*
 		// Match Fields //
 		for (dbfield_i in dbrow) {
@@ -46,8 +35,21 @@ console.log(dbfield_i, dbfield,field)
 		}
 */
 		dbrow = row
-		api.sendWebRequest('post',{table:tableName,action:'u',row:row})
+		api.sendWebRequest('post',{table:tableName,action:'u',row:row}, db.load())
 	}
 	return true
 }
+db.load = function dbLoad() {
+	let ndb = {}
+	let cb = (res, target)=> {
+		console.log(res.toString())
+		ndb[target] = JSON.parse(res.toString())
+		db.data = ndb
+		searchListToDbSet(db)
+	}
+	api.webRequestGet('tickets', cb)
+	api.webRequestGet('steps', cb)
+	api.webRequestGet('contacts', cb)
+}
 searchListToDbSet(db)
+db.load()

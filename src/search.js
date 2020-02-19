@@ -46,8 +46,8 @@ function searchListToDbSet(db) {
 		if (isNaN(list_i) || list_i == 0) continue
 		searchList.removeChild(searchListItems[list_i])
 	}
-	for (tickets_i in db.tickets) {
-		let ticket = db.tickets[tickets_i]
+	for (tickets_i in db.data.tickets) {
+		let ticket = db.data.tickets[tickets_i]
 		console.log(ticket)
 		let li = document.createElement('li')
 		li.innerText = `#${ticket.id} - ${ticket.name}`
@@ -67,9 +67,10 @@ function ticketLoadToContainer(ticket) {
 	descriptionDiv.classList.add('ticket-description')
 
 	let stepsDiv = document.createElement('div')
-
-	for (steps_i in ticket.steps) {
-		let step = ticket.steps[steps_i]
+	let steps = db.data.steps
+	for (steps_i in steps) {
+		let step = steps[steps_i]
+		if (step.ticketid != ticket.id) continue
 		let stepId = `${ticket.id}_steps_${steps_i}`
 
 		// COMPLETED CHECKBOX //
@@ -80,8 +81,8 @@ function ticketLoadToContainer(ticket) {
 
 		// Click updates DB and applies completed styling //
 		completedBox.onclick = ()=> {
-			ticket.steps[steps_i].completed = completedBox.checked
-			db.update('tickets', ticket)
+			step.completed = completedBox.checked
+			db.update('steps', step)
 		}
 
 		// LABEL FOR CHECKBOX //
@@ -90,8 +91,8 @@ function ticketLoadToContainer(ticket) {
 		completedBoxLabel.innerHTML = step.name
 		completedBoxLabel.contentEditable = true
 		completedBoxLabel.onblur = ()=> {
-			ticket.steps[steps_i].name = completedBoxLabel.innerText
-			db.update('tickets', ticket)
+			step.name = completedBoxLabel.innerText
+			db.update('steps', step)
 		}
 
 		//  <LI> ELEMENT TO CONTAIN STEP //
