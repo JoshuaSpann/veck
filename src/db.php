@@ -2,6 +2,35 @@
 
 // DATABASE FUNCTIONALITY //
 
+function dbAdd($tablename, $rowData) {
+ if ($tablename == '' || $rowData == []) return;
+ $fields = '';
+ $params = '';
+ $fieldCount = sizeof($rowData) - 1;
+ $i = 0;
+ foreach ($rowData as $k=>$v) {
+  $fields .= $k;
+  //$params .= '?';
+  $params .= ":$k";
+  if ($i < $fieldCount) {
+   $fields .= ',';
+   $params .= ',';
+  }
+  $i++;
+ }
+ $sql = "insert into $tablename ($fields) values($params)";
+print_r($sql);
+ $db = new SQLite3('tickets.db');
+ $query = $db->prepare($sql);
+ $i = 0;
+ foreach ($rowData as $k=>$v) {
+  $query->bindValue(":$k", $v);
+  $i++;
+ }
+ $query->execute();
+ $db->close();
+}
+
 function dbGet($tablename='*', $filterparams='') {
  if ($tablename == '*') {
   $tableDataJSON = '';

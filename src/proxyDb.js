@@ -19,7 +19,8 @@ db.add = function dbAdd(tableName, row) {
 	if (tables[tableName] == null || tables[tableName] == undefined) return 'NO SUCH TABLE'
 	if (row.id == null || row.id == undefined || row.id == '') return 'BAD ID'
 	db.data[tableName].push(row)
-	api.sendWebRequest('post',{table:tableName,action:'a',row:row}, db.load())
+	let apiObject = {table:tableName,action:'a',row:row}
+	api.sendWebRequest('post', apiObject, db.load)
 }
 db.update = function dbUpdate(tableName, row) {
 	let tables = db.data
@@ -43,7 +44,7 @@ console.log(dbfield_i, dbfield,field)
 */
 		dbrow = row
 		db.data[tableName] = row
-		api.sendWebRequest('post',{table:tableName,action:'u',row:row}, db.load())
+		api.sendWebRequest('post',{table:tableName,action:'u',row:row}, db.load)
 	}
 	return true
 }

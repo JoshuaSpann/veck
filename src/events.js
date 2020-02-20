@@ -29,6 +29,7 @@ function changeTitleBar() {
 
 function addNewRecordEvent(targetElement) {
 	let randomId = generateId()
+	let table = _app.table.active
 	let contentDiv = document.querySelector('#content')
 	let nameInput = document.createElement('input')
 	let descInput = document.createElement('div')
@@ -38,7 +39,6 @@ function addNewRecordEvent(targetElement) {
 		let now = new Date()
 		let timestamp = `${now.getFullYear()}-${now.getMonth()+1}-${now.getDate()} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`
 		if (nameInput.value == '') return
-		let table = _app.table.active
 		let row = {
 			id: randomId,
 			name: nameInput.value,

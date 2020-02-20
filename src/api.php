@@ -14,6 +14,7 @@ if ($request === 'PUT' || $request == 'POST') {
  foreach($arrBody as $bodyItemName => $bodyItemValue) {
   if ($bodyItemName === 'table') {
    if ($arrBody['action'] === 'u') dbUpsert($arrBody['table'], $arrBody['row']);
+   if ($arrBody['action'] === 'a') dbAdd($arrBody['table'], $arrBody['row']);
   }
  }
 
