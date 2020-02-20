@@ -31,13 +31,14 @@
 	setAllYearsToCurrentYear()
 })()
 
-function appTitleSet(value='Tickets') {
+function appTitleSet(value=_app.title) {
 	let pageDetailElems = document.querySelectorAll('.page-detail')
 	for (let e_i in pageDetailElems) {
 		if (isNaN(e_i)) continue
 		let e = pageDetailElems[e_i]
 		e.innerText = value
 	}
+	_app.title = value
 }
 
 	appTitleSet()

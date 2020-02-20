@@ -72,6 +72,14 @@ header {
 	z-index: 9;
 }
 header
+ input {
+	background: none;
+	border: none;
+	border-bottom: solid 3px #fff;
+	color: #fff;
+	font-size: 1rem;
+}
+header
  h1 {
 	color: #fff;
 	text-align: center;
