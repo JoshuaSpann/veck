@@ -32,7 +32,6 @@ function addNewRecordEvent(targetElement) {
 	let table = _app.table.active
 	let contentDiv = document.querySelector('#content')
 	let nameInput = document.createElement('input')
-	let descInput = document.createElement('div')
 
 	nameInput.id = 'input-new-record-name'
 	nameInput.onblur = ()=> {
@@ -54,20 +53,17 @@ console.log(row)
 	targetElement.appendChild(nameInput)
 	nameInput.focus()
 
-	descInput.id = 'input-new-record-description'
-	descInput.style.padding = '2em'
-	descInput.style.width = '100%'
-	descInput.style.height = '100%'
-	descInput.contentEditable = true
-	descInput.onblur = ()=> {
-		let row = {
-			id: randomId,
-			description: descInput.innerHTML
-		}
-		db.update(table,row)
-	}
+	let descInput = ui.fields.description(randomId)
 	contentDiv.innerHTML = ''
 	contentDiv.appendChild(descInput)
+}
+
+function eventUpdateDesc(ticketid, descvalue) {
+	let row = {
+		id: ticketid,
+		description: descvalue
+	}
+	db.update(_app.table.active, row)
 }
 
 function generateId() {

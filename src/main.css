@@ -126,6 +126,21 @@ input[type='search'] {
 .menu.main:hover {
 	background: var(--color-darken);
 }
+.ticket-description
+{
+	border: solid 1px #888;
+	max-height: 70%;
+	overflow: scroll;
+	padding: 2em;
+	width: 60%;
+}
+.ticket-description:before{
+	content: 'Description';
+	display: block;
+	font-size: 120%;
+	font-weight: bold;
+	text-decoration: underline;
+}
 #content {
 	background: #fefefe;
 	border: solid 1px var(--color-grey-light);

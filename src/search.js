@@ -61,10 +61,8 @@ function searchListToDbSet(db) {
 function ticketLoadToContainer(ticket) {
 	let contentDiv = document.querySelector('#content')
 
-	let descriptionDiv = document.createElement('div')
+	let descriptionDiv = ui.fields.description(ticket.id)
 	descriptionDiv.innerHTML = ticket.description
-	descriptionDiv.contentEditable = true
-	descriptionDiv.classList.add('ticket-description')
 
 	let stepsDiv = document.createElement('div')
 	let steps = db.data.steps
