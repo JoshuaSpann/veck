@@ -48,16 +48,30 @@ function searchListToDbSet(db) {
 	}
 	for (tickets_i in db.data.tickets) {
 		let ticket = db.data.tickets[tickets_i]
-		console.log(ticket)
+		if (ticket.completed == null) {
+			ticket.completed = false
+		}
+		let completedBox = ui.fields.checkbox(ticket.id)
+		completedBox.checked = ticket.completed
+		let delBtn = ui.buttons.delete()
 		let li = document.createElement('li')
 		li.innerText = `#${ticket.id} - ${ticket.name}`
+		li.appendChild(completedBox)
+		li.appendChild(delBtn)
 		li.onclick = ()=> {
 			appTitleSet(li.innerText)
 			ticketLoadToContainer(ticket)
 		}
+		if (ticket.completed) {
+			li.classList.add('completed')
+		} else {
+			li.classList.remove('completed')
+		}
+		li.setAttribute('title', ticket.description.replace(/<[^>]*>/g,'').replace(/&nbsp;/g,''))
 		searchList.appendChild(li)
 	}
 }
+
 function ticketLoadToContainer(ticket) {
 	let contentDiv = document.querySelector('#content')
 

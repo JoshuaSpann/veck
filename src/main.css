@@ -126,6 +126,25 @@ input[type='search'] {
 .menu.main:hover {
 	background: var(--color-darken);
 }
+li button.delete
+{
+	margin-top: -0.5em !important;
+	padding: 0.25em 0.5em;
+}
+li button.delete:before
+{
+	content: '🗑';
+}
+li button.delete,
+li input[type=checkbox]
+{
+	float: left;
+	margin: 0 1em;
+}
+li.completed
+{
+	text-decoration: line-through;
+}
 .ticket-description
 {
 	border: solid 1px #888;

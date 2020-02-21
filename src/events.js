@@ -47,6 +47,7 @@ function addNewRecordEvent(targetElement) {
 		}
 console.log(row)
 		db.add(table, row)
+		document.querySelector('.action.new').click()
 	}
 
 	targetElement.innerHTML = `${randomId} - `
@@ -54,8 +55,8 @@ console.log(row)
 	nameInput.focus()
 
 	let descInput = ui.fields.description(randomId)
-	contentDiv.innerHTML = ''
-	contentDiv.appendChild(descInput)
+	//contentDiv.innerHTML = ''
+	//contentDiv.appendChild(descInput)
 }
 
 function eventUpdateDesc(ticketid, descvalue) {
