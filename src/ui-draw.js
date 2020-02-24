@@ -39,12 +39,14 @@ ui.fields.stepname = function stepnameField() {
 	nameField.width = '10em'
 	return nameField
 
+/*
 	let completedBoxLabel = document.createElement('label')
 	//completedBoxLabel.for = stepId
 	//completedBoxLabel.innerHTML = step.name
 	completedBoxLabel.contentEditable = true
 	completedBoxLabel.style.width = '100%'
 	return completedBoxLabel
+*/
 }
 ui.fields.checkbox = function checkBoxField(callback) {
 	let checkbox = document.createElement('input')

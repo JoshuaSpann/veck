@@ -34,6 +34,7 @@ db.delete = function dbDelete(tablename, row) {
 	}
 	db.data[tablename].splice(rowIndex, 1)
 	let apiObject = {table: tablename, action:'d', row: row}
+console.log(apiObject)
 	api.sendWebRequest('delete', apiObject, db.load)
 }
 
@@ -78,5 +79,8 @@ db.load = function dbLoad() {
 	api.webRequestGet('steps', cb)
 	api.webRequestGet('contacts', cb)
 }
+
+
+
 searchListToDbSet(db)
 db.load()

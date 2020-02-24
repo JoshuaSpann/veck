@@ -4,11 +4,20 @@
 
 function dbAdd($tablename, $rowData) {
  if ($tablename == '' || $rowData == []) return;
+ $db = new SQLite3('tickets.db');
  $fields = '';
  $params = '';
  $fieldCount = sizeof($rowData) - 1;
  $i = 0;
  foreach ($rowData as $k=>$v) {
+  $type = gettype($v);
+
+  if ($k == 'id' && ($type == 'integer' || $type == 'double')) {
+   $res = $db->prepare("select max(id) as max from $tablename")->execute();
+   $row = $res->fetchArray();
+   $newId = $row['max']++;
+   $v = $newId;
+  }
   $fields .= $k;
   //$params .= '?';
   $params .= ":$k";
@@ -20,7 +29,6 @@ function dbAdd($tablename, $rowData) {
  }
  $sql = "insert into $tablename ($fields) values($params)";
 print_r($sql);
- $db = new SQLite3('tickets.db');
  $query = $db->prepare($sql);
  $i = 0;
  foreach ($rowData as $k=>$v) {

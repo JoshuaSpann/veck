@@ -116,7 +116,8 @@ function ticketLoadToContainer(ticket) {
 			if (step.name != '')
 				db.update('steps', step)
 			if (step.name == '') {
-				console.log(  db.delete('steps', {id: step.id, ticketid: ticket.id})  )
+				db.delete('steps', {id: step.id, ticketid: ticket.id})
+				completedBoxLabel.parentNode.remove(completedBoxLabel.parentNode)
 			}
 		}
 
@@ -146,6 +147,7 @@ function ticketLoadToContainer(ticket) {
 		}
 		if (newStepLabel.value == '') return
 		db.add('steps', newStepRecord)
+		ticketLoadToContainer(ticket)
 	}
 	newStepCheckbox.onclick = ()=> {
 		let newStepRecord = {
