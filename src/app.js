@@ -1,7 +1,7 @@
 let _app = {
 	config: {
 		action: null,
-		showmenu: false
+		showmenu: true
 	},
 	table: {
 		active: 'tickets'

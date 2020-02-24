@@ -18,13 +18,39 @@ ui.buttons.delete = function deleteButton() {
 	return deleteButton
 }
 
-ui.fields.checkbox = function checkboxField(ticketid) {
-	let completedBox = document.createElement('input')
-	completedBox.type = 'checkbox'
-	completedBox.onclick = ()=> {
+ui.fields.completed = function completedField(ticketid) {
+	let completedBox = ui.fields.checkbox()
+	completedBox.onclick = ()=>{
+		//if (completedBox.classList.contains('completed'))
 		db.update(_app.table.active, {id: ticketid, completed: completedBox.checked})
 	}
 	return completedBox
+}
+ui.fields.step = function stepsField(stepid) {
+	let table = 'steps'
+	let step = ui.fields.checkbox()
+	step.onclick = ()=>{
+		db.update('steps', {id: stepid, completed: step.checked})
+	}
+	return step
+}
+ui.fields.stepname = function stepnameField() {
+	let nameField = document.createElement('input')
+	nameField.width = '10em'
+	return nameField
+
+	let completedBoxLabel = document.createElement('label')
+	//completedBoxLabel.for = stepId
+	//completedBoxLabel.innerHTML = step.name
+	completedBoxLabel.contentEditable = true
+	completedBoxLabel.style.width = '100%'
+	return completedBoxLabel
+}
+ui.fields.checkbox = function checkBoxField(callback) {
+	let checkbox = document.createElement('input')
+	checkbox.type = 'checkbox'
+	if (callback) checkbox.onclick = callback
+	return checkbox
 }
 
 ui.fields.description = function descriptionField(ticketid) {

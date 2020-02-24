@@ -22,6 +22,14 @@ db.add = function dbAdd(tableName, row) {
 	let apiObject = {table:tableName,action:'a',row:row}
 	api.sendWebRequest('post', apiObject, db.load)
 }
+db.delete = function dbDelete(tablename, row) {
+	let tables = db.data
+	if (tables[tableName] == null || tables[tableName] == undefined) return 'NO SUCH TABLE'
+	if (row.id == null || row.id == undefined || row.id == '') return 'BAD ID'
+	db.data[tablename].remove(row)
+	let apiObject = {table: tablename, action:'d', row: row}
+	api.sendWebRequest('delete', apiObject, db.load)
+}
 db.update = function dbUpdate(tableName, row) {
 	let tables = db.data
 	if (tables[tableName] == null || tables[tableName] == undefined) return 1

@@ -51,10 +51,11 @@ function searchListToDbSet(db) {
 		if (ticket.completed == null) {
 			ticket.completed = false
 		}
-		let completedBox = ui.fields.checkbox(ticket.id)
+		let completedBox = ui.fields.completed(ticket.id)
 		completedBox.checked = ticket.completed
 		let delBtn = ui.buttons.delete()
 		let li = document.createElement('li')
+		
 		li.innerText = `#${ticket.id} - ${ticket.name}`
 		li.appendChild(completedBox)
 		li.appendChild(delBtn)
@@ -77,7 +78,15 @@ function ticketLoadToContainer(ticket) {
 
 	let descriptionDiv = ui.fields.description(ticket.id)
 	descriptionDiv.innerHTML = ticket.description
-
+/*
+	//TODO - Search all hashtags and link to search text on ctrl-click
+	let textId = document.createElement('a')
+	textId.innerText = `#${ticket.id}`
+	textId.onclick = ()=> {
+		let searchBox = document.querySelector('input[type="search"]')
+		searchBox.value = textId.innerText
+	}
+*/
 	let stepsDiv = document.createElement('div')
 	let steps = db.data.steps
 	for (steps_i in steps) {
@@ -104,7 +113,10 @@ function ticketLoadToContainer(ticket) {
 		completedBoxLabel.contentEditable = true
 		completedBoxLabel.onblur = ()=> {
 			step.name = completedBoxLabel.innerText
-			db.update('steps', step)
+			if (step.name != '')
+				db.update('steps', step)
+			if (step.name == '')
+				db.delete('steps', {id: stepId, ticketid: ticket.id})
 		}
 
 		//  <LI> ELEMENT TO CONTAIN STEP //
@@ -114,6 +126,35 @@ function ticketLoadToContainer(ticket) {
 		stepLi.classList.add('ticket-step')
 		stepsDiv.appendChild(stepLi)
 	}
+
+	// NEW STEP //
+	let newStepLi = document.createElement('li')
+	newStepLi.innerHTML = '<b>+</b>'
+	let newStepCheckbox = ui.fields.step()
+	let newStepCheckboxId = ticket.id+'_'+db.data.steps.length
+	newStepCheckbox.id = newStepCheckboxId
+	let newStepLabel = ui.fields.stepname(db.data.steps.length)
+	newStepLabel.for = newStepCheckboxId
+	newStepLabel.onblur = ()=> {
+		let newStepRecord = {
+			id: db.data.steps.length,
+			ticketid: ticket.id,
+			name: newStepLabel.value
+		}
+		if (newStepLabel.value == '') return
+		db.add('steps', newStepRecord)
+	}
+	newStepCheckbox.onclick = ()=> {
+		let newStepRecord = {
+			id: db.data.steps.length,
+			ticketid: ticket.id,
+			name: newStepLabel.value
+		}
+		db.add('steps', newStepRecord )
+	}
+	newStepLi.appendChild(newStepCheckbox)
+	newStepLi.appendChild(newStepLabel)
+	stepsDiv.appendChild(newStepLi)
 
 	contentDiv.innerHTML = ''
 	contentDiv.appendChild(descriptionDiv)
