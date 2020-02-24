@@ -31,6 +31,16 @@ print_r($sql);
  $db->close();
 }
 
+function dbDelete($tablename, $rowData) {
+ $sql = "delete from $tablename where id = :rowid and ticketid = :ticketid";
+ $db = new SQLite3('tickets.db');
+ $query = $db->prepare($sql);
+ $query->bindValue(":rowid", $rowData['id']);
+ $query->bindValue(":ticketid", $rowData['ticketid']);
+ $query->execute();
+ $db->close();
+}
+
 function dbGet($tablename='*', $filterparams='') {
  if ($tablename == '*') {
   $tableDataJSON = '';

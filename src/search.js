@@ -115,8 +115,9 @@ function ticketLoadToContainer(ticket) {
 			step.name = completedBoxLabel.innerText
 			if (step.name != '')
 				db.update('steps', step)
-			if (step.name == '')
-				db.delete('steps', {id: stepId, ticketid: ticket.id})
+			if (step.name == '') {
+				console.log(  db.delete('steps', {id: step.id, ticketid: ticket.id})  )
+			}
 		}
 
 		//  <LI> ELEMENT TO CONTAIN STEP //
@@ -130,14 +131,16 @@ function ticketLoadToContainer(ticket) {
 	// NEW STEP //
 	let newStepLi = document.createElement('li')
 	newStepLi.innerHTML = '<b>+</b>'
+		//TODO-THIS IS IN API PHP HANDLED BY DB AUTO REMOVE FIELD
+	let nextIndexId = db.data.steps[db.data.steps.length-1].id+2
 	let newStepCheckbox = ui.fields.step()
-	let newStepCheckboxId = ticket.id+'_'+db.data.steps.length
+	let newStepCheckboxId = ticket.id+'_'+nextIndexId
 	newStepCheckbox.id = newStepCheckboxId
-	let newStepLabel = ui.fields.stepname(db.data.steps.length)
+	let newStepLabel = ui.fields.stepname(nextIndexId)
 	newStepLabel.for = newStepCheckboxId
 	newStepLabel.onblur = ()=> {
 		let newStepRecord = {
-			id: db.data.steps.length,
+			id: nextIndexId,
 			ticketid: ticket.id,
 			name: newStepLabel.value
 		}

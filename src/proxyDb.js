@@ -22,14 +22,22 @@ db.add = function dbAdd(tableName, row) {
 	let apiObject = {table:tableName,action:'a',row:row}
 	api.sendWebRequest('post', apiObject, db.load)
 }
+
+
 db.delete = function dbDelete(tablename, row) {
 	let tables = db.data
-	if (tables[tableName] == null || tables[tableName] == undefined) return 'NO SUCH TABLE'
-	if (row.id == null || row.id == undefined || row.id == '') return 'BAD ID'
-	db.data[tablename].remove(row)
+	if (tables[tablename] == null || tables[tablename] == undefined) return 'NO SUCH TABLE'
+	if (row.id == null || row.id == undefined || isNaN(row.id)) return 'BAD ID'
+	let rowIndex = 0
+	for (row_i in tables[tablename]) {
+		if (tables[tablename][row_i].id = row.id) rowIndex = row_i
+	}
+	db.data[tablename].splice(rowIndex, 1)
 	let apiObject = {table: tablename, action:'d', row: row}
 	api.sendWebRequest('delete', apiObject, db.load)
 }
+
+
 db.update = function dbUpdate(tableName, row) {
 	let tables = db.data
 	if (tables[tableName] == null || tables[tableName] == undefined) return 1
@@ -56,6 +64,8 @@ console.log(dbfield_i, dbfield,field)
 	}
 	return true
 }
+
+
 db.load = function dbLoad() {
 	let ndb = {}
 	let cb = (res, target)=> {
