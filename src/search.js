@@ -65,6 +65,9 @@ function searchListToDbSet(db) {
 		li.appendChild(delBtn)
 		li.onclick = ()=> {
 			appTitleSet(li.innerText)
+			appTitleSet(ticket)
+			_app.config.action = 'edit'
+			document.querySelector('.action.new').innerText = 'X'
 			ticketLoadToContainer(ticket)
 		}
 		if (ticket.completed) {
@@ -121,7 +124,7 @@ function ticketLoadToContainer(ticket) {
 			if (step.name != '')
 				db.update('steps', step)
 			if (step.name == '') {
-				db.delete('steps', {id: step.id})//, ticketid: ticket.id})
+				db.delete('steps', {id: step.id})
 				completedBoxLabel.parentNode.remove(completedBoxLabel.parentNode)
 			}
 		}

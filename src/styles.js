@@ -36,7 +36,23 @@ function appTitleSet(value=_app.title) {
 	for (let e_i in pageDetailElems) {
 		if (isNaN(e_i)) continue
 		let e = pageDetailElems[e_i]
-		e.innerText = value
+		e.innerHTML = ''
+		if (value.id && value.name) {
+			let idSpan = document.createElement('span')
+			idSpan.innerText = value.id
+			e.appendChild(idSpan)
+
+			e.innerHTML += ' - '
+
+			let nameField = document.createElement('input')
+			nameField.value = value.name
+			nameField.onblur = ()=> {
+				value.name = nameField.value
+				db.update('tickets', value)
+			}
+			e.appendChild(nameField)
+		}
+		else e.innerText = value
 	}
 	_app.title = value
 }

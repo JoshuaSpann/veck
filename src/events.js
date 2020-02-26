@@ -10,7 +10,7 @@ function activateNewButtonToggleEvent () {
 		}
 		else {
 			newButton.innerText = '+'
-			_app.config.action =null
+			_app.config.action = null
 		}
 		changeTitleBar()
 	}
@@ -23,6 +23,7 @@ function changeTitleBar() {
 	}
 	else {
 		titleBarHeader.innerHTML = _app.title
+		titleBarHeader.innerHTML = 'Tickets'
 		_app.config.action = null
 	}
 }

@@ -27,20 +27,15 @@ db.add = function dbAdd(tableName, row) {
 db.delete = function dbDelete(tablename, row) {
 	let tables = db.data
 	if (tables[tablename] == null || tables[tablename] == undefined) return 'NO SUCH TABLE'
-	//if (row.id == null || row.id == undefined /*|| isNaN(row.id)*/) return 'BAD ID'
-	let rowIndex = 0
 	for (row_i in tables[tablename]) {
+		if (isNaN(row_i)) continue
 		for (field_i in tables[tablename][row_i]) {
 			if (row[field_i]) {
 				db.data[tablename].splice(row_i, 1)
 			}
 		}
-		if (isNaN(row_i)) continue
-		//if (tables[tablename][row_i].id = row.id) rowIndex = row_i
 	}
-	//db.data[tablename].splice(rowIndex, 1)
 	let apiObject = {table: tablename, action:'d', row: row}
-console.log(apiObject)
 	api.sendWebRequest('delete', apiObject, db.load)
 }
 
@@ -53,6 +48,7 @@ db.update = function dbUpdate(tableName, row) {
 	for (rows_i in tables[tableName]) {
 		if (isNaN(rows_i)) continue
 		let dbrow = tables[tableName][rows_i]
+		if (dbrow == undefined) continue
 		oldDbRow = dbrow
 		if (row.id != dbrow.id) continue
 /*
