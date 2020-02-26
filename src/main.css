@@ -46,6 +46,9 @@ button.searchClearButton {
 	padding: 0.4em 0.7em;
 	z-index: 2;
 }
+.bullets-none {
+	list-style: none;
+}
 h1 {
 	color: var(--color-main);
 }
@@ -148,13 +151,28 @@ li.completed
 .ticket-description
 {
 	border: solid 1px #888;
-	max-height: 70%;
+	height: 85%;
+	margin: .5em;
 	overflow: scroll;
 	padding: 2em;
-	width: 60%;
+	width: 45%;
 }
 .ticket-description:before{
 	content: 'Description';
+	display: block;
+	font-size: 120%;
+	font-weight: bold;
+	text-decoration: underline;
+}
+.ticket-steps {
+	margin: .5em;
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 45%;
+}
+.ticket-steps:before {
+	content: 'Steps';
 	display: block;
 	font-size: 120%;
 	font-weight: bold;
@@ -166,6 +184,7 @@ li.completed
 	height: 85vh;
 	margin: auto;
 	margin-top: calc(8.5vh + 2em);
+	position: relative;
 	width: 95vw;
 }
 #content.contract {

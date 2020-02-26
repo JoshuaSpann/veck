@@ -96,6 +96,8 @@ function ticketLoadToContainer(ticket) {
 	}
 */
 	let stepsDiv = document.createElement('div')
+	stepsDiv.classList.add('ticket-steps')
+	stepsDiv.classList.add('bullets-none')
 	let steps = db.data.steps
 	for (steps_i in steps) {
 		let step = steps[steps_i]
