@@ -40,11 +40,12 @@ print_r($sql);
 }
 
 function dbDelete($tablename, $rowData) {
- $sql = "delete from $tablename where id = :rowid and ticketid = :ticketid";
+ //$sql = "delete from $tablename where id = :rowid and ticketid = :ticketid";
+ $sql = "delete from $tablename where id = :rowid";
  $db = new SQLite3('tickets.db');
  $query = $db->prepare($sql);
  $query->bindValue(":rowid", $rowData['id']);
- $query->bindValue(":ticketid", $rowData['ticketid']);
+ //$query->bindValue(":ticketid", $rowData['ticketid']);
  $query->execute();
  $db->close();
 }

@@ -54,6 +54,9 @@ function searchListToDbSet(db) {
 		let completedBox = ui.fields.completed(ticket.id)
 		completedBox.checked = ticket.completed
 		let delBtn = ui.buttons.delete()
+		delBtn.onclick = ()=> {
+			console.log(  db.delete('tickets', {id: ticket.id})  )
+		}
 		let li = document.createElement('li')
 		
 		li.innerText = `#${ticket.id} - ${ticket.name}`
@@ -68,6 +71,7 @@ function searchListToDbSet(db) {
 		} else {
 			li.classList.remove('completed')
 		}
+		if (ticket.description == null) ticket.description = ''
 		li.setAttribute('title', ticket.description.replace(/<[^>]*>/g,'').replace(/&nbsp;/g,''))
 		searchList.appendChild(li)
 	}

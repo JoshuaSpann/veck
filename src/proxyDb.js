@@ -27,9 +27,10 @@ db.add = function dbAdd(tableName, row) {
 db.delete = function dbDelete(tablename, row) {
 	let tables = db.data
 	if (tables[tablename] == null || tables[tablename] == undefined) return 'NO SUCH TABLE'
-	if (row.id == null || row.id == undefined || isNaN(row.id)) return 'BAD ID'
+	if (row.id == null || row.id == undefined /*|| isNaN(row.id)*/) return 'BAD ID'
 	let rowIndex = 0
 	for (row_i in tables[tablename]) {
+		if (isNaN(row_i)) continue
 		if (tables[tablename][row_i].id = row.id) rowIndex = row_i
 	}
 	db.data[tablename].splice(rowIndex, 1)
@@ -45,6 +46,7 @@ db.update = function dbUpdate(tableName, row) {
 	let oldDbRow = null
 	// Match Rows //
 	for (rows_i in tables[tableName]) {
+		if (isNaN(rows_i)) continue
 		let dbrow = tables[tableName][rows_i]
 		oldDbRow = dbrow
 		if (row.id != dbrow.id) continue
