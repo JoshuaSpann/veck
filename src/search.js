@@ -55,7 +55,8 @@ function searchListToDbSet(db) {
 		completedBox.checked = ticket.completed
 		let delBtn = ui.buttons.delete()
 		delBtn.onclick = ()=> {
-			console.log(  db.delete('tickets', {id: ticket.id})  )
+			db.delete('steps', {ticketid: ticket.id})
+			db.delete('tickets', {id: ticket.id})
 		}
 		let li = document.createElement('li')
 		
@@ -120,7 +121,7 @@ function ticketLoadToContainer(ticket) {
 			if (step.name != '')
 				db.update('steps', step)
 			if (step.name == '') {
-				db.delete('steps', {id: step.id, ticketid: ticket.id})
+				db.delete('steps', {id: step.id})//, ticketid: ticket.id})
 				completedBoxLabel.parentNode.remove(completedBoxLabel.parentNode)
 			}
 		}
