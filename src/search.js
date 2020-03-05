@@ -36,8 +36,17 @@ function setSearchLinkClickEvents() {
 	}
 }
 
+function addHideCompletedEvent() {
+	let hideCompletedInput = document.querySelector('.hidecompleted')
+	hideCompletedInput.onclick = ()=> {
+		_app.config.hidecompleted = hideCompletedInput.checked
+		searchListToDbSet(db)
+	}
+}
+
 addSearchFunctionality()
 setSearchLinkClickEvents()
+addHideCompletedEvent()
 })()
 function searchListToDbSet(db) {
 	let searchList = document.querySelector('ul.search')
@@ -50,6 +59,9 @@ function searchListToDbSet(db) {
 		let ticket = db.data.tickets[tickets_i]
 		if (ticket.completed == null) {
 			ticket.completed = false
+		}
+		if (ticket.completed && _app.config.hidecompleted) {
+			continue;
 		}
 		let completedBox = ui.fields.completed(ticket.id)
 		completedBox.checked = ticket.completed

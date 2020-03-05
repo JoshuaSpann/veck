@@ -139,7 +139,7 @@ li button.delete:before
 	content: '🗑';
 }
 li button.delete,
-li input[type=checkbox]
+li input[type=checkbox]:not(.hidecompleted)
 {
 	float: left;
 	margin: 0 1em;
