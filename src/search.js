@@ -38,6 +38,7 @@ function setSearchLinkClickEvents() {
 
 function addHideCompletedEvent() {
 	let hideCompletedInput = document.querySelector('.hidecompleted')
+	hideCompletedInput.checked = true
 	hideCompletedInput.onclick = ()=> {
 		_app.config.hidecompleted = hideCompletedInput.checked
 		searchListToDbSet(db)
@@ -143,10 +144,28 @@ function ticketLoadToContainer(ticket) {
 			}
 		}
 
+		// WORKED CHECKBOX //
+		let workedBox = document.createElement('input')
+		workedBox.type='checkbox'
+		workedBox.id = stepId+'_worked'
+		workedBox.checked = step.worked
+		workedBox.classList.add('worked')
+		workedBox.onclick = ()=> {
+			step.worked = workedBox.checked
+			db.update('steps', step)
+		}
+		// WORKED LABEL //
+		let workedBoxLabel = document.createElement('label')
+		workedBoxLabel.for = stepId+'_worked'
+		workedBoxLabel.innerHTML = 'Worked'
+
+
 		//  <LI> ELEMENT TO CONTAIN STEP //
 		let stepLi = document.createElement('li')
 		stepLi.appendChild(completedBox)
 		stepLi.appendChild(completedBoxLabel)
+		stepLi.appendChild(workedBox)
+		stepLi.appendChild(workedBoxLabel)
 		stepLi.classList.add('ticket-step')
 		stepsDiv.appendChild(stepLi)
 	}

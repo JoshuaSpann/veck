@@ -139,7 +139,7 @@ li button.delete:before
 	content: '🗑';
 }
 li button.delete,
-li input[type=checkbox]:not(.hidecompleted)
+li input[type=checkbox]:not(.hidecompleted):not(.worked)
 {
 	float: left;
 	margin: 0 1em;
@@ -178,6 +178,9 @@ li.completed
 	font-weight: bold;
 	text-decoration: underline;
 }
+.worked {
+	margin: 0 1em;
+}
 #content {
 	background: #fefefe;
 	border: solid 1px var(--color-grey-light);
@@ -191,4 +194,7 @@ li.completed
 	float: right;
 	margin-right: 2vw;
 	width: calc(97vw - 32em);
+}
+#input-new-record-description img {
+	width: 100%;
 }
