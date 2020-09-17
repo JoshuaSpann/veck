@@ -42,7 +42,7 @@ function addNewRecordEvent(targetElement) {
 		let row = {
 			id: randomId,
 			name: nameInput.value,
-			//description: descInput.value,
+			description: `Ticket #${randomId}: ${nameInput.value}`,
 			date_added: timestamp,
 			date_modified: timestamp
 		}

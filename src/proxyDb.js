@@ -51,6 +51,7 @@ db.update = function dbUpdate(tableName, row) {
 		if (dbrow == undefined) continue
 		oldDbRow = dbrow
 		if (row.id != dbrow.id) continue
+		row.date_modified = new Date()
 /*
 		// Match Fields //
 		for (dbfield_i in dbrow) {

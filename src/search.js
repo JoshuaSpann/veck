@@ -7,7 +7,9 @@ function searchEvent() {
 	for (let fields_i in fields) {
 		if (isNaN(fields_i) || fields_i <=0) continue
 		let field = fields[fields_i]
-		if (!field.innerText.toLowerCase().includes(searchText.toLowerCase())) {
+		if (!field.innerText.toLowerCase().includes(searchText.toLowerCase())
+		    && !field.title.toLowerCase().includes(searchText.toLowerCase())
+		) {
 			field.classList.add('hidden')
 		} else {
 			field.classList.remove('hidden')
