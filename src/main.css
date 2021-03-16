@@ -149,9 +149,16 @@ li.completed
 {
 	text-decoration: line-through;
 }
+aside .heading {
+	background: url('https://picsum.photos/800');
+	background-repeat: no-repeat;
+	background-size: cover;
+}
 aside .heading #ticket-counter-container {
+	color: #f5f5f5;
 	margin: 0 auto;
 	padding-top: 5em;
+	text-shadow: 0 0 0.5em #000;
 	width: 7em;
 }
 aside .heading .ticket-counter {
