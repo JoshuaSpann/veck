@@ -81,6 +81,7 @@ header
 	border-bottom: solid 3px #fff;
 	color: #fff;
 	font-size: 1rem;
+	width: 17em;
 }
 header
  h1 {
@@ -147,6 +148,14 @@ li input[type=checkbox]:not(.hidecompleted):not(.worked)
 li.completed
 {
 	text-decoration: line-through;
+}
+aside .heading #ticket-counter-container {
+	margin: 0 auto;
+	padding-top: 5em;
+	width: 7em;
+}
+aside .heading .ticket-counter {
+	font-size: 200%;
 }
 .ticket-description
 {

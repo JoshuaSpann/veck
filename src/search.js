@@ -4,6 +4,7 @@ function searchEvent() {
 	let searchText = document.querySelector('input[type="search"]').value
 	let container = document.querySelector('aside')
 	let fields = container.querySelectorAll('li')
+	let hiddenTixCount = 0
 	for (let fields_i in fields) {
 		if (isNaN(fields_i) || fields_i <=0) continue
 		let field = fields[fields_i]
@@ -11,10 +12,12 @@ function searchEvent() {
 		    && !field.title.toLowerCase().includes(searchText.toLowerCase())
 		) {
 			field.classList.add('hidden')
+			hiddenTixCount++
 		} else {
 			field.classList.remove('hidden')
 		}
 	}
+	updateTicketCounter(_app.metadata.ticketcount - hiddenTixCount)
 }
 
 function addSearchFunctionality() {
@@ -58,7 +61,11 @@ function searchListToDbSet(db) {
 		if (isNaN(list_i) || list_i == 0) continue
 		searchList.removeChild(searchListItems[list_i])
 	}
+	let ticketCount = 0
+	let openTixCount = 0
 	for (tickets_i in db.data.tickets) {
+		if (isNaN(tickets_i)) continue
+		ticketCount++
 		let ticket = db.data.tickets[tickets_i]
 		if (ticket.completed == null) {
 			ticket.completed = false
@@ -89,11 +96,17 @@ function searchListToDbSet(db) {
 			li.classList.add('completed')
 		} else {
 			li.classList.remove('completed')
+			openTixCount++
 		}
 		if (ticket.description == null) ticket.description = ''
 		li.setAttribute('title', ticket.description.replace(/<[^>]*>/g,'').replace(/&nbsp;/g,''))
 		searchList.appendChild(li)
 	}
+	if (_app.config.hidecompleted) {
+		ticketCount = openTixCount
+	}
+	_app.metadata.ticketcount = ticketCount
+	updateTicketCounter(ticketCount)
 }
 
 function ticketLoadToContainer(ticket) {
@@ -114,7 +127,10 @@ function ticketLoadToContainer(ticket) {
 	stepsDiv.classList.add('ticket-steps')
 	stepsDiv.classList.add('bullets-none')
 	let steps = db.data.steps
+	let ticketCounter = 0;
 	for (steps_i in steps) {
+		if (isNaN(steps_i)) continue;
+		ticketCounter++;
 		let step = steps[steps_i]
 		if (step.ticketid != ticket.id) continue
 		let stepId = `${ticket.id}_steps_${steps_i}`
@@ -207,4 +223,14 @@ function ticketLoadToContainer(ticket) {
 	contentDiv.innerHTML = ''
 	contentDiv.appendChild(descriptionDiv)
 	contentDiv.appendChild(stepsDiv)
+}
+
+function updateTicketCounter(numberTix) {
+	let tcs = document.querySelectorAll('.ticket-counter')
+	for (tc_i in tcs) {
+		if (isNaN(tc_i)) continue
+		let tc = tcs[tc_i]
+		tc.innerText = _app.metadata.ticketcount
+		if (numberTix) tc.innerText = numberTix
+	}
 }
